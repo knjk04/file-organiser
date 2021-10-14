@@ -1,3 +1,15 @@
+import os
+
+
+class Move:
+    def __init__(self):
+        self.recursive = False
+        self.extension = ''
+        self.with_extension = True
+        self.src = os.getcwd()
+        self.to = os.getcwd()
+
+
 def display_options():
     print(
         '''\nMove | Options:
@@ -28,14 +40,29 @@ def move_from():
           " (press enter if it's the current directory)")
 
 
+def get_file_ext():
+    print('Enter in the file extension:')
+    ext = input()
+    if not ext.startswith('.'):
+        ext = '.' + ext
+    return ext
+
+
 def run():
     display_options()
     print('Move | Which option do you want?')
 
+    state = Move()
     option = input()
     if option == '--extension' or option == '-e':
-        raise NotImplemented
+        state.with_extension = True
     elif option == '--without-extension' or option == '-we':
-        raise NotImplemented
+        state.with_extension = False
     else:
+        # TODO: loop back.
         print('Invalid option. Please try again.')
+        raise NotImplementedError
+    state.extension = get_file_ext()
+
+    
+    # TODO: navigate back to home when done
